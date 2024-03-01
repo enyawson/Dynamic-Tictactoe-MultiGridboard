@@ -44,24 +44,26 @@ public class Javafile{
         int rowCount = 1;  //keeps track of row win
          System.out.println("Row initial position Values");
         for(int r=0; r<rowSize; r++){
+            initialPlay = gridBoard[r][0];
             for(int c=1; c<colSize; c++){
-                initialPlay = gridBoard[r][0];
                 if(initialPlay == gridBoard[r][c]){
                     rowCount +=1;
                 }else{
+                    rowCount = 0;
                     break; // stop and move to next row;
                 }
             }
-            if(rowCount == rowSize && initialPlay == 'X'){
-                xwin = 1; // x wins, from row
-            }else if(rowCount == rowSize && initialPlay == 'O') {
-                owin = 1;
+            if(rowCount == colSize && initialPlay == 'X'){
+                xwin += 1; // x wins, from row
+            }else if(rowCount == colSize && initialPlay == 'O') {
+                owin += 1;
             }
             //if no win check the columns for winner
            
             System.out.println(initialPlay);
 
         }
+
          // check for column win
         int colCount = 1;  //keeps track of col win
         char initialColPlay= '-';
@@ -75,6 +77,7 @@ public class Javafile{
                     if(initialColPlay == gridBoard[rowLoop][downwardMove]){
                         colCount +=1;
                     }else{
+                        colCount=0;
                         break;
                     }
                     if (initialColPlay == 'X' && colCount == colSize){
@@ -90,7 +93,6 @@ public class Javafile{
             System.out.println(initialColPlay);
         }
        
-
         //check for diagonal Left win
         char initialDiagonalLeft = gridBoard[0][0];
         int diagonalLeftCount = 1;
@@ -100,6 +102,7 @@ public class Javafile{
             if(initialDiagonalLeft == gridBoard[d][d]){
                 diagonalLeftCount +=1;
             }else{
+                diagonalLeftCount =0;
                 break;
             }
              if (initialDiagonalLeft == 'X' && diagonalLeftCount == rowSize){
@@ -113,17 +116,18 @@ public class Javafile{
         
         //check for diagonal Right win
         char initialDiagonalRight= gridBoard[0][colSize-1];
+         int diagonalRightSize = colSize;
         int diagonalRightCount = 1;
         System.out.println("Diagonal Right Position Values");
         for(int d=0; d<rowSize; d++){
-            int diagonalRightSize = colSize-1;
+            diagonalRightSize -= 1;
             System.out.println(gridBoard[d][diagonalRightSize]);
             if(initialDiagonalRight == gridBoard[d][diagonalRightSize]){
                 diagonalRightCount +=1;
             }else{
+                diagonalRightCount =0;
                 break;
             }
-            diagonalRightSize--;  
             if (initialDiagonalRight == 'X' && diagonalRightCount == rowSize){
             xwin +=1; 
             
@@ -132,12 +136,9 @@ public class Javafile{
             }
 
         }
-        
-
 
         System.out.print("Player X : "+  xwin +"\n");
         System.out.println("Player O : "+  owin);
-
 
     }
     
